@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afali O&D Clothing | AI-Enhanced Thrift</title>
+    <style>
+        /* Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600&display=swap');
+
+        /* Color Palette & Variables */
+        :root {
+            --bg-color: #f9f6f0; /* Vintage off-white */
+            --primary-blue: #1c3b57; /* Deep denim blue */
+            --accent-orange: #d35400; /* Rust orange */
+            --text-dark: #2d2d2d;
+            --border-color: #e0dcd3;
+            --font-heading: 'Libre Baskerville', serif;
+            --font-body: 'Outfit', sans-serif;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: var(--font-heading);
+            color: var(--primary-blue);
+        }
+
+        a { text-decoration: none; color: inherit; }
+        
+        /* Navigation */
+        header {
+            background-color: #ffffff;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo { font-size: 1.8rem; font-weight: 700; }
+        .logo span { color: var(--accent-orange); }
+
+        nav ul { list-style: none; display: flex; gap: 2rem; }
+        nav ul li a { font-weight: 600; transition: color 0.3s; }
+        nav ul li a:hover { color: var(--accent-orange); }
+
+        /* Hero Section */
+        #hero {
+            text-align: center;
+            padding: 5rem 5%;
+            background: linear-gradient(rgba(28, 59, 87, 0.8), rgba(28, 59, 87, 0.8)), url('https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: white;
+        }
+        #hero h1 { color: white; font-size: 3rem; margin-bottom: 1rem; }
+        #hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem; font-weight: 300; }
+        .cta-btn {
+            background-color: var(--accent-orange);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .cta-btn:hover { background-color: #a04000; }
+
+        /* Technology Stack Section */
+        #how-it-works { padding: 4rem 5%; text-align: center; }
+        .section-title { font-size: 2.2rem; margin-bottom: 3rem; }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .tech-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        .tech-card:hover { transform: translateY(-5px); }
+        .tech-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .tech-card h3 { margin-bottom: 1rem; font-size: 1.4rem; }
+
+        /* AI Digital Catalog Preview */
+        #catalog { padding: 4rem 5%; background-color: #ffffff; }
+        
+        .filter-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .filter-btn {
+            background: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .item-card {
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 1rem;
+            position: relative;
+        }
+        .item-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 5px;
+            background-color: var(--bg-color);
+        }
+        .item-info { padding-top: 1rem; }
+        .item-title { font-weight: 600; font-size: 1.1rem; }
+        .item-price { color: var(--accent-orange); font-weight: 700; font-size: 1.2rem; }
+        .stock-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        /* In-Store QR Demo Section */
+        #qr-integration {
+            padding: 4rem 5%;
+            background-color: var(--primary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .qr-text { flex: 1; min-width: 300px; }
+        .qr-text h2 { color: white; margin-bottom: 1rem; }
+        .qr-demo {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            color: var(--text-dark);
+            text-align: center;
+        }
+        .qr-placeholder {
+            width: 150px;
+            height: 150px;
+            background: url('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Afali%20Digital%20Catalog') no-repeat center;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111;
+            color: #ccc;
+            text-align: center;
+            padding: 2rem 5%;
+        }
+        .social-links { margin-top: 1rem; font-size: 1.5rem; letter-spacing: 15px; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 1rem; }
+            nav ul { flex-wrap: wrap; justify-content: center; }
+            #hero h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Afali <span>O&D</span> Clothing</div>
+        <nav>
+            <ul>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#catalog">Digital Catalog</a></li>
+                <li><a href="#qr-integration">In-Store QR</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h1>A Curated Thrift Experience.</h1>
+        <p>Bridging the gap between the thrill of the physical thrift hunt and the convenience of AI-enhanced digital shopping.</p>
+        <button class="cta-btn" onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})">Browse Live Inventory</button>
+    </section>
+
+    <section id="how-it-works">
+        <h2 class="section-title">The Technology Stack</h2>
+        <div class="tech-grid">
+            <div class="tech-card">
+                <div class="tech-icon">☁️</div>
+                <h3>Cloud-Based Inventory</h3>
+                <p>Our centralized platform categorizes items digitally upon arrival. Experience accurate pricing and real-time stock availability, so you never miss a rare find.</p>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon">📱</div>
+                <h3>Social Ecosystem</h3>
+                <p>Integrated directly with Instagram and Facebook. Discover curated drops, styling inspiration, and instantly claim items straight from your feed.</p>
+            </div>
+            <div class="tech-card">
+                <div class="tech-icon">🔍</div>
+                <h3>In-Store QR Integration</h3>
+                <p>Shopping locally? Scan QR codes on racks and at the counter to access our AI catalog for material details, sizing, and personalized styling suggestions.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="catalog">
+        <h2 class="section-title" style="text-align: center;">Live AI-Enhanced Catalog</h2>
+        
+        <div class="filter-btns">
+            <button class="filter-btn active" onclick="filterItems('all')">All Items</button>
+            <button class="filter-btn" onclick="filterItems('vintage')">Vintage Denim</button>
+            <button class="filter-btn" onclick="filterItems('jackets')">Curated Jackets</button>
+        </div>
+
+        <div class="catalog-grid" id="itemGrid">
+            </div>
+    </section>
+
+    <section id="qr-integration">
+        <div class="qr-text">
+            <h2>Scan & Discover In-Store</h2>
+            <p>We've eliminated the friction of traditional thrifting. When visiting Afali O&D Clothing, simply point your smartphone camera at the QR codes located on the cashier counter or product tags.</p>
+            <br>
+            <p><strong>Unlock Instant Data:</strong></p>
+            <ul>
+                <li>Fabric compositions and care instructions.</li>
+                <li>Exact sizing measurements.</li>
+                <li>AI-generated outfit pairings based on current inventory.</li>
+            </ul>
+        </div>
+        <div class="qr-demo">
+            <div class="qr-placeholder"></div>
+            <h3>Try the Demo</h3>
+            <p>Scan this mock QR code to simulate the in-store digital bridge.</p>
+            <button class="cta-btn" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.9rem;" onclick="alert('Demo: Opening Afali AI Product Details...')">Simulate Scan</button>
+        </div>
+    </section>
+
+    <footer>
+        <h2>Afali O&D Clothing</h2>
+        <p>Tarlac City, Central Luzon, Philippines</p>
+        <p>Seamlessly blending physical retail with digital innovation.</p>
+        <div class="social-links">
+            <a href="#">📱</a> <a href="#">🌐</a> <a href="#">📧</a>
+        </div>
+        <p style="margin-top: 2rem; font-size: 0.8rem;">&copy; 2026 Afali O&D Clothing. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mock Data for Cloud Inventory
+        const inventory = [
+            { id: 1, title: "90s Oversized Denim Jacket", price: "₱850", category: "vintage", status: "In Stock" },
+            { id: 2, title: "Curated Men's Windbreaker", price: "₱600", category: "jackets", status: "In Stock" },
+            { id: 3, title: "Classic Levi's 501s", price: "₱1,200", category: "vintage", status: "Low Stock" },
+            { id: 4, title: "Fleece Zip-Up Jacket", price: "₱450", category: "jackets", status: "In Stock" }
+        ];
+
+        function renderCatalog(filter = 'all') {
+            const grid = document.getElementById('itemGrid');
+            grid.innerHTML = ''; // Clear current
+
+            const filtered = filter === 'all' ? inventory : inventory.filter(i => i.category === filter);
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                // Using a placeholder image related to clothing
+                const imgSource = item.category === 'vintage' 
+                    ? 'https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=400&q=80' 
+                    : 'https://images.unsplash.com/photo-1551028719-0141bf9c6aa2?auto=format&fit=crop&w=400&q=80';
+                
+                card.innerHTML = `
+                    <div class="stock-badge" style="background: ${item.status === 'Low Stock' ? '#e67e22' : '#27ae60'}">${item.status}</div>
+                    <img src="${imgSource}" alt="${item.title}">
+                    <div class="item-info">
+                        <div class="item-title">${item.title}</div>
+                        <div class="item-price">${item.price}</div>
+                        <p style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">AI Tag: Checked & Verified</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter Logic
+        function filterItems(category) {
+            // Update active button state
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            // Render items
+            renderCatalog(category);
+        }
+
+        // Initial Load
+        renderCatalog();
+    </script>
+</body>
+</html>
